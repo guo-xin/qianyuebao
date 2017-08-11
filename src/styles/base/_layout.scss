@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+[class*="l-item"] {
+  position: relative;
+  display: block;
+  background-color: #fff;
+  padding: 28px 30px;
+  padding-right: 60px;
+
+  //&.l-item-link::after {
+  //  content: '\e60c';
+  //  display: inline-block;
+  //  width: 36px;
+  //  height: 36px;
+  //  line-height: 36px;
+  //  position: absolute;
+  //  right: 20px;
+  //  top: 50%;
+  //  color: #000;
+  //  //color: $c_text_1;
+  //  font-family: "iconfont" !important;
+  //  font-size: 36px;
+  //  font-style: normal;
+  //  -webkit-font-smoothing: antialiased;
+  //  -webkit-text-stroke-width: 0.2px;
+  //  -moz-osx-font-smoothing: grayscale;
+  //  transform: translateY(-50%) rotate(-90deg);
+  //}
+  &.l-item-link::after {
+    content: ' ';
+    display: inline-block;
+    width: 12px;
+    height: 24px;
+    line-height: 24px;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    // background-image: url("../../assets/arrow.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    //color: #C2C2C2;
+  }
+}
+
+/**
+ * layout
+ *
+ * 说明
+ * l:layout
+ * r:row
+ * l:left
+ * r:right
+ * c:center
+ */
+
+//优化
+[class^="l-r"] {
+  // TODO l-r-lr 覆盖 l-item-link
+  // 不能使用 !important 导致 DOM 隐藏问题
+  display: flex;
+  & > * {
+    display: block;
+  }
+
+  // 1行内元素平分
+  // &[class^="l-r-auto"] {
+  //   flex: 1;
+  // }
+
+  // 1行内元素平分
+  &[class^="l-r-auto"] {
+    & > * {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  // 主轴为水平方向，起点在右端
+  &[class^="l-r-r"] {
+    flex-direction: row-reverse;
+  }
+
+  // 1行2列两边对齐
+  &[class^="l-r-lr"] {
+    justify-content: space-between;
+  }
+
+  // l_auto:占用剩下的
+  .l_auto {
+    flex: 1;
+  }
+}
+
+// 垂直水平居中对齐
+.l-c-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,4 @@
+{
+  "/api/coupon-recommend": "/coupon-recommend",
+  "/blog/:resource/:id/show": "/:resource/:id"
+}

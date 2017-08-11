@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+/**
+ * 动画
+ * https://github.com/daneden/animate.css
+ */
+
+/* ==================== 放大缩小 ==================== */
+.zoomIn, .zoomInOut-enter {
+  //animation-name: zoomIn;
+  animation: zoomIn .3s;
+}
+
+.zoomOut, .zoomInOut-leave {
+  //animation-name: zoomOut;
+  animation: zoomOut .3s;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  to {
+    opacity: 0;
+  }
+}

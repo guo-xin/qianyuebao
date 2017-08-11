@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+my_merchant/
+npm-debug.log
+selenium-debug.log
+.idea/
