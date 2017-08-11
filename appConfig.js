@@ -1,8 +1,4 @@
 /**
- * Created by aidenZou on 16/5/6.
- */
-
-/**
  * chunks
  * vue vue-resource
  */
@@ -11,14 +7,14 @@
 exports.pages = [
   {
     filename: 'my-merchant',
-    title: '我的商户', // 指定自定义 title
+    title: 'My Merchants', // 自定义 title 我的商户
     chunks: 'vue_vue-resource',
     template: 'src/pages/my-merchant/index.ejs',
     supportOffline: true
   },
   {
     filename: 'my-info',
-    title: '我的资料', // 指定自定义 title
+    title: 'Personal Information', // 我的资料
     chunks: 'vue_vue-resource',
     template: 'src/pages/my-info/index.ejs',
     supportOffline: true
@@ -28,13 +24,6 @@ exports.pages = [
     title: '查找店铺', // 指定自定义 title
     chunks: 'vue_vue-resource',
     template: 'src/pages/search-shop/index.ejs',
-    supportOffline: true
-  },
-  {
-    filename: 'merchant-detail',
-    title: '商户详情', // 指定自定义 title
-    chunks: 'vue_vue-resource',
-    template: 'src/pages/merchant-detail/index.ejs',
     supportOffline: true
   },
   {
