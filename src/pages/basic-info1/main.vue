@@ -2,7 +2,7 @@
   <div class="basic-info">
    <div class="top">
      <div class="wrap">Basic Information</div>
-
+     <div></div>
    </div>
     <div class="footer">
       <button>Next</button>
@@ -77,9 +77,7 @@
               width: 100%;
             }
           }
-          .mint-field-clear {
-            display: none;
-          }
+
         }
 
       }

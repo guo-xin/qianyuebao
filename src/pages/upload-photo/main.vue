@@ -1,6 +1,6 @@
 <template>
   <div class="form-control">
-    <mt-field label="姓名" placeholder="请填写" type="text"></mt-field>
+
   </div>
 
 </template>
