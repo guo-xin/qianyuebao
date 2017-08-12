@@ -1,12 +1,12 @@
 <template lang="html">
   <div class="container">
-    <div class="title">
+    <!-- <div class="title">
       <img src="../../assets/arrow_ro.png" alt="">
       <p class="title_text">Merchant Information</p>
     </div>
     <div class="Title">
       Basic Information
-    </div>
+    </div> -->
 
     <ul class="basic_information">
       <li>
@@ -93,9 +93,13 @@ export default {
 }
 ul {
   width: 100%;
+  background: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
+  li:last-of-type {
+    border-bottom: 0;
+  }
   li {
     width: 90%;
     height: 80px;

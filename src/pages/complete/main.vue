@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="container">
-    <div class="title">
+    <!-- <div class="title">
       <p class="title_text">Review the submitted</p>
-    </div>
+    </div> -->
     <div class="space">
 
     </div>

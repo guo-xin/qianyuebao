@@ -1,9 +1,9 @@
 <template>
   <div class="Rate_container">
-    <div class="title">
+    <!-- <div class="title">
       <img src="../../assets/arrow_ro.png" alt="">
       <p class="title_text">Setup Discount Rate</p>
-    </div>
+    </div> -->
     <div class="space">
 
     </div>

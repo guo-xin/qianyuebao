@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="container">
-    <div class="title">
+    <!-- <div class="title">
       <img src="../../assets/arrow_ro.png" alt="">
       <p class="title_text">Preview</p>
-    </div>
+    </div> -->
     <div class="space">
       * Please double check your information before submission
     </div>
