@@ -1,8 +1,8 @@
 {
-  "name": "wdbfe-v2",
+  "name": "qyb-haiwai",
   "version": "0.0.1",
   "description": "A Vue.js project",
-  "author": "aidenZou &lt;aidenzou@gmail.com&gt;",
+  "author": "guoxin@qfpay.com",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js development",
