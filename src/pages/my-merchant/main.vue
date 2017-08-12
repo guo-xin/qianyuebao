@@ -3,28 +3,28 @@
     <div class="total-info-wrap">
       <div class="date">
         <i class="prev" @click="prevMonth"></i>
-        <span>{{y}}年{{m}}月</span>
+        <span>{{m}} {{y}}</span>
         <i class="next" @click="nextMonth"></i>
       </div>
       <div class="total-info">
         <div>
-          <p>全部商户</p>
+          <p>Merchants</p>
           <p class="num">{{mchntSum}}</p>
         </div>
         <div style="padding:0 50px;min-width:30%;">
-          <p>交易总金额</p>
-          <p class="num">{{monthAtm | formatCurrency}}</p>
+          <p>Amount</p>
+          <p class="num">{{monthAtm}}</p>
         </div>
         <div>
-          <p>交易笔数</p>
+          <p>Payments</p>
           <p class="num">{{monthNum}}</p>
         </div>
       </div>
     </div>
     <div class="list-header">
-      <div class="header-item" :class="{active: index === 0}" @click="changeTab(0, 'normal')">全部</div>
-      <div class="header-item" :class="{active: index === 1}" @click="changeTab(1, 'near')">附近</div>
-      <div class="header-item" :class="{active: index === 2}" @click="changeTab(2, 'audit')">审核</div>
+      <div class="header-item" :class="{active: index === 0}" @click="changeTab(0, 'normal')">All Merchants</div>
+      <div class="header-item" :class="{active: index === 1}" @click="changeTab(1, 'near')">Near Me</div>
+      <div class="header-item" :class="{active: index === 2}" @click="changeTab(2, 'audit')">In Review</div>
       <div class="scroll-bar" :style="{left: 33.3 * index + '%'}"></div>
     </div>
     <ul class="list-wrap">
@@ -32,10 +32,10 @@
         <div class="shop-info">
           <p class="shop-name">
             <span class="text">{{item.shopname}}</span>
-            <i v-if="item.audit_state === 3 || item.audit_state === 4 || item.audit_state === 10" class="status status-loading">审核中</i>
-            <i v-if="item.audit_state === 9" class="status status-loading">等待复审</i>
-            <i v-if="item.audit_state === 6 || item.audit_state === 7" class="status status-refuse">审核拒绝</i>
-            <i v-if="item.audit_state === 8" class="status status-fail">审核驳回</i>
+            <i v-if="item.audit_state === 3 || item.audit_state === 4 || item.audit_state === 10" class="status status-loading">In Review</i>
+            <i v-if="item.audit_state === 9" class="status status-loading">Awaiting Review</i>
+            <i v-if="item.audit_state === 6 || item.audit_state === 7" class="status status-refuse">Review Rejected</i>
+            <i v-if="item.audit_state === 8" class="status status-fail">Review Rebut</i>
           </p>
           <p v-if="item.address" class="address">{{item.address}}</p>
         </div>
@@ -45,12 +45,12 @@
         </div>
       </li>
     </ul>
-    <infinite-loading :on-infinite="onInfinite">
-      <span slot="no-more">
-      </span>
-      <span slot="no-results">
-      </span>
-    </infinite-loading>
+    <!--<infinite-loading :on-infinite="onInfinite">-->
+      <!--<span slot="no-more">-->
+      <!--</span>-->
+      <!--<span slot="no-results">-->
+      <!--</span>-->
+    <!--</infinite-loading>-->
   </div>
   <loading :visible="loading"></loading>
   <toast :msg.sync="msg"></toast>
@@ -63,135 +63,185 @@
   import config from '../../methods/config'
   import loading from '../../components/loading/loading.vue'
   import toast from '../../components/tips/toast.vue'
-  import bridge from '../../methods/bridge-v2'
+  import sample from 'lodash.sample';
+//  import bridge from '../../methods/bridge-v2'
   export default {
     components: {
       toast, loading, InfiniteLoading
     },
     data () {
       return {
-        loading: true,
+        loading: false,
         status: false,
         index: 0,
         date: new Date(),
+        monthHash: {0: 'January', 1: 'February', 2: 'March', 3: 'April', 4: 'May', 5: 'June', 6: 'July', 7: 'August', 8: 'September', 9: 'October', 10: 'November', 11: 'December'},
         mchntSum: 0,
         monthAtm: 0,
         monthNum: 0,
         mode: 'normal',
         page: 0,
-        list: [],
+        list: [
+            {shopname: 'Test', audit_state: 6, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-13', dist: ''},
+            {shopname: 'New1', audit_state: 3, address: 'T1, 17 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-13', dist: ''},
+            {shopname: 'Funail 5', audit_state: 9, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-11', dist: ''},
+            {shopname: 'New Big', audit_state: 6, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-10', dist: ''}
+        ],
         msg: '',
         lng: '',
         lat: '',
-        mask: true
+        mask: false
       }
     },
     created () {
       this.getSummary()
-      this.get_Location()
-      this.registerRegSuccess()
-      this.registerStatusChange()
+//      this.get_Location()
+//      this.registerRegSuccess()
+//      this.registerStatusChange()
     },
     computed: {
       y () {
         return this.date.getFullYear()
       },
       m () {
-        return this.date.getMonth() + 1 < 10 ? '0' + (this.date.getMonth() + 1) : this.date.getMonth() + 1
+        return this.monthHash[this.date.getMonth()]
       }
     },
     methods: {
       registerStatusChange () {
-        let _this = this
-        bridge.webNotify({
-          type: 'register',
-          name: 'changestatus'
-        }, function () {
-          _this.page = 0
-          _this.getList()
-        })
+//        let _this = this
+//        bridge.webNotify({
+//          type: 'register',
+//          name: 'changestatus'
+//        }, function () {
+//          _this.page = 0
+//          _this.getList()
+//        })
       },
       onInfinite () {
-        let data = {
-          format: 'jsonp',
-          page: this.page,
-          mode: this.mode
+//        let data = {
+//          format: 'jsonp',
+//          page: this.page,
+//          mode: this.mode
+//        }
+//        if (this.mode === 'near') {
+//          data = Object.assign({}, data, {
+//            lng: this.lng,
+//            lat: this.lat
+//          })
+//        }
+//        this.$http({
+//          url: config.host + 'sm/mchnt/list',
+//          method: 'JSONP',
+//          data: data
+//        }).then((res) => {
+//          let data = res.data
+//          if (data.respcd === '0000') {
+//            if (data.data.mchnts.length !== 0) {
+//              this.list = this.list.concat(data.data.mchnts)
+//              this.$broadcast('$InfiniteLoading:loaded')
+//              this.page ++
+//            } else {
+//              this.$broadcast('$InfiniteLoading:complete')
+//            }
+//          }
+//        });
+
+        if(this.mode === 'normal') {
+            this.list = [
+                {shopname: 'Test', audit_state: 6, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-10', dist: ''},
+                {shopname: 'New1', audit_state: 3, address: 'T1, 17 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-13', dist: ''},
+                {shopname: 'Funail 5', audit_state: 9, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-13', dist: ''},
+                {shopname: 'New Big', audit_state: 6, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-11', dist: ''}
+            ];
+//            this.$broadcast('$InfiniteLoading:loaded');
+            this.page ++
+        }else if (this.mode === 'near') {
+            this.list = [
+                {shopname: 'New1', audit_state: 3, address: 'No. 3 building, No. 1, Fortis East Street, Beijing, is owned by Kirin social products store', ctime: '', dist: '1km'},
+                {shopname: 'Funail 5', audit_state: 9, address: 'No. 8 Wangjing street, Beijing, Daimler building, 2 floor', ctime: '', dist: '2.5km'},
+                {shopname: 'New Big', audit_state: 6, address: 'No. 4 Wangjing street, Beijing, Mercedes Benz store, 1 floor', ctime: '', dist: '3km'},
+                {shopname: 'Test', audit_state: 6, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '', dist: '5.2km'}
+            ];
+//            this.$broadcast('$InfiniteLoading:loaded');
+
+        }else {
+            this.list = [
+
+                {shopname: 'New1', audit_state: 3, address: 'T1, 17 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-13', dist: ''},
+                {shopname: 'Test', audit_state: 10, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-10', dist: ''},
+                {shopname: 'New Big', audit_state: 6, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-11', dist: ''},
+                {shopname: 'Funail 5', audit_state: 4, address: 'T3, 22 floor, Wangjing center, Wangjing street, Beijing, Chaoyang District, China', ctime: '2017-08-13', dist: ''}
+            ];
+//            this.$broadcast('$InfiniteLoading:loaded');
+            this.page ++
         }
-        if (this.mode === 'near') {
-          data = Object.assign({}, data, {
-            lng: this.lng,
-            lat: this.lat
-          })
+        if(!this.list.length) {
+//            this.$broadcast('$InfiniteLoading:complete')
         }
-        this.$http({
-          url: config.host + 'sm/mchnt/list',
-          method: 'JSONP',
-          data: data
-        }).then((res) => {
-          let data = res.data
-          if (data.respcd === '0000') {
-            if (data.data.mchnts.length !== 0) {
-              this.list = this.list.concat(data.data.mchnts)
-              this.$broadcast('$InfiniteLoading:loaded')
-              this.page ++
-            } else {
-              this.$broadcast('$InfiniteLoading:complete')
-            }
-          }
-        })
       },
       registerRegSuccess () {
-        let _this = this
-        bridge.webNotify({
-          type: 'register',
-          name: 'registeDidSuccess'
-        }, function () {
-          _this.page = 0
-          _this.getSummary()
-          _this.getList()
-          _this.registerRegSuccess()
-        })
+//        let _this = this
+//        bridge.webNotify({
+//          type: 'register',
+//          name: 'registeDidSuccess'
+//        }, function () {
+//          _this.page = 0
+//          _this.getSummary()
+//          _this.getList()
+//          _this.registerRegSuccess()
+//        })
       },
       changeTab (i, j) {
         console.log(i, j)
         this.mode = j
-        this.list = []
+//        this.list = []
         this.index = i
         this.page = 0
-        this.$broadcast('$InfiniteLoading:reset')
+          this.onInfinite();
+//        this.$broadcast('$InfiniteLoading:reset')
       },
       prevMonth () {
         let currentMonth = this.date.getMonth()
         this.date = new Date(this.date.getFullYear(), currentMonth - 1)
-        this.getSummary()
+//        this.getSummary()
+          this.mchntSum = sample([175, 175, 175, 175, 175, 175]);
+          this.monthAtm = sample(['10.00', '24.51', '107.70', '1016.85', '7.97', '9.52', '0.09', '15.17'])
+          this.monthNum = sample([0, 8, 84, 5, 57, 3, 0, 46])
       },
       nextMonth () {
         let currentMonth = this.date.getMonth()
         this.date = new Date(this.date.getFullYear(), currentMonth + 1)
-        this.getSummary()
+//        this.getSummary()
+          this.mchntSum = sample([175, 175, 175, 175, 175, 175]);
+          this.monthAtm = sample(['10.00', '24.51', '107.70', '1016.85', '7.97', '9.52', '0.09', '15.17'])
+          this.monthNum = sample([0, 8, 84, 5, 57, 3, 0, 46])
       },
       getSummary () {
-        this.$http({
-          url: config.host + 'sm/salesman/summary',
-          method: 'JSONP',
-          data: {
-            date: this.y + '-' + this.m,
-            format: 'jsonp'
-          }
-        }).then((res) => {
-          let data = res.data
-          if (data.respcd === '0000') {
-            this.mchntSum = data.data.mchnt_sum
-            this.monthAtm = data.data.month_amt
-            this.monthNum = data.data.month_num
-          } else if (data.respcd === '2002') {
-            bridge.openUri({
-              uri: 'hjsh://logout'
-            })
-          } else {
-            this.msg = data.resperr
-          }
-        })
+//        this.$http({
+//          url: config.host + 'sm/salesman/summary',
+//          method: 'JSONP',
+//          data: {
+//            date: this.y + '-' + this.m,
+//            format: 'jsonp'
+//          }
+//        }).then((res) => {
+//          let data = res.data
+//          if (data.respcd === '0000') {
+//            this.mchntSum = data.data.mchnt_sum;
+//            this.monthAtm = data.data.month_amt
+//            this.monthNum = data.data.month_num
+//          } else if (data.respcd === '2002') {
+//            bridge.openUri({
+//              uri: 'hjsh://logout'
+//            })
+//          } else {
+//            this.msg = data.resperr
+//          }
+//        })
+          this.mchntSum = 175;
+          this.monthAtm = '10.00'
+          this.monthNum = 0
       },
       getNearList () {
         this.page = 0
@@ -243,7 +293,7 @@
             }
             this.page ++
           } else {
-            this.msg = '没有更多了...'
+            this.msg = 'no more...'
           }
         } else {
           this.msg = res.resperr
@@ -256,45 +306,45 @@
         }
       },
       redirect (userid) {
-        let _this = this
-        if(!this.status) {
-          this.status = true;
-          setTimeout(_this.status = false, 400);
+//        let _this = this
+//        if(!this.status) {
+//          this.status = true;
+//          setTimeout(_this.status = false, 400);
 
-          this.registerStatusChange()
-          bridge.openUri({
-            uri: config.redirect + 'merchant-detail.html?userid=' + userid
-          }, function (res) {
-
-          })
-        }
+//          this.registerStatusChange()
+//          bridge.openUri({
+//            uri: config.redirect + 'merchant-detail.html?userid=' + userid
+//          }, function (res) {
+//
+//          })
+//        }
       },
       get_Location () {
-        let _this = this
-        this.loading = true
-        bridge.getLocation({
-          type: 'WGS84'
-        }, function (cb) {
-          _this.lat = cb.latitude
-          _this.lng = cb.longitude
-          _this.setMenus()
-          _this.loading = false
-          _this.mask = false
-        })
+//        let _this = this
+//        this.loading = true
+//        bridge.getLocation({
+//          type: 'WGS84'
+//        }, function (cb) {
+//          _this.lat = cb.latitude
+//          _this.lng = cb.longitude
+//          _this.setMenus()
+//          _this.loading = false
+//          _this.mask = false
+//        })
       },
       setMenus () {
-        let _this = this
-        bridge.setNavMenu({
-          buttons: [
-            {
-              type: 'uri',
-              uri: config.redirect + 'search-shop.html?lat=' + _this.lat + '&lng=' + _this.lng,
-              icon: '',
-              title: '查找店铺'
-            }
-          ]
-        }, function (cb) {
-        })
+//        let _this = this
+//        bridge.setNavMenu({
+//          buttons: [
+//            {
+//              type: 'uri',
+//              uri: config.redirect + 'search-shop.html?lat=' + _this.lat + '&lng=' + _this.lng,
+//              icon: '',
+//              title: '查找店铺'
+//            }
+//          ]
+//        }, function (cb) {
+//        })
       }
     }
   }
@@ -326,12 +376,12 @@
   .status-loading {
     border: 0.03rem solid $o;
     color: $o;
-    min-width: 114px;
+    min-width: 184px;
   }
   .status-refuse {
     border: 0.03rem solid #8B572A;
     color: #8B572A;
-    min-width: 114px;
+    min-width: 184px;
   }
   .status-fail {
     border: 0.03rem solid #EA001C;
