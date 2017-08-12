@@ -71,5 +71,33 @@ exports.pages = [
     chunks: 'vue_vue-resource',
     template: 'src/pages/jsbridge-demo/index.ejs',
     supportOffline: true
+  },
+  {
+    filename: 'setup-discountRate',
+    title: 'Setup-Discount Rate', // 指定自定义 title
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/setup-discountRate/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'Merchant-onboard',
+    title: 'Merchant-On-Board', // 指定自定义 title
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/Merchant-onboard/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'complete',
+    title: 'complete', // 指定自定义 title
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/complete/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'preview',
+    title: 'preview', // 指定自定义 title
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/preview/index.ejs',
+    supportOffline: true
   }
 ]
