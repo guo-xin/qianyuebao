@@ -99,5 +99,12 @@ exports.pages = [
     chunks: 'vue_vue-resource',
     template: 'src/pages/preview/index.ejs',
     supportOffline: true
+  },
+  {
+    filename: 'Merchant-Information',
+    title: 'Merchant-Information', // 指定自定义 title
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/Merchant-Information/index.ejs',
+    supportOffline: true
   }
 ]
