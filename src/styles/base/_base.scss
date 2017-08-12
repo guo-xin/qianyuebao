@@ -32,6 +32,11 @@ body {
   font-size: 24px;  /*px*/
 }
 
+input:focus {
+  border: none;
+  outline: none;
+}
+
 [v-cloak] {
   display: none;
 }
@@ -54,6 +59,7 @@ $dg: #8A8C92; //dark gary
 $o: #FF8100; //orange
 $b: #2F323A; //black
 $lg: #A7A9AE; //light gary
+$lw: #e6e6e6; //light white
 
 // fontSize
 $f48 : 48px;

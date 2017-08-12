@@ -69,17 +69,17 @@ exports.pages = [
     supportOffline: true
   },
   {
-    filename: 'setup-discountRate',
-    title: 'Setup-Discount Rate', // 指定自定义 title
+    filename: 'set-rate',
+    title: 'Setup-Discount Rate', // 指定自定义 设置费率
     chunks: 'vue_vue-resource',
-    template: 'src/pages/setup-discountRate/index.ejs',
+    template: 'src/pages/set-rate/index.ejs',
     supportOffline: true
   },
   {
-    filename: 'Merchant-onboard',
-    title: 'Merchant-On-Board', // 指定自定义 title
+    filename: 'send-code',
+    title: 'Merchant-On-Board', // 指定自定义 发送验证码
     chunks: 'vue_vue-resource',
-    template: 'src/pages/Merchant-onboard/index.ejs',
+    template: 'src/pages/send-code/index.ejs',
     supportOffline: true
   },
   {
@@ -94,13 +94,6 @@ exports.pages = [
     title: 'preview', // 指定自定义 title
     chunks: 'vue_vue-resource',
     template: 'src/pages/preview/index.ejs',
-    supportOffline: true
-  },
-  {
-    filename: 'Merchant-Information',
-    title: 'Merchant-Information', // 指定自定义 title
-    chunks: 'vue_vue-resource',
-    template: 'src/pages/Merchant-Information/index.ejs',
     supportOffline: true
   }
 ]
