@@ -6,6 +6,34 @@
 // 页面配置
 exports.pages = [
   {
+    filename: 'register',
+    title: 'Chris Chen', // 自定义 title 注册
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/register/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'basic-info1',
+    title: 'Merchant Information', // 自定义 title 商户基本信息1
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/basic-info1/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'basic-info2',
+    title: 'Merchant Information', // 自定义 title 商户基本信息2
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/basic-info2/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'upload-photo',
+    title: 'Shop Photos', // 自定义 title 上传图片
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/upload-photo/index.ejs',
+    supportOffline: true
+  },
+  {
     filename: 'my-merchant',
     title: 'My Merchants', // 自定义 title 我的商户
     chunks: 'vue_vue-resource',
@@ -34,13 +62,6 @@ exports.pages = [
     supportOffline: true
   },
   {
-    filename: 'add-record',
-    title: '添加记录', // 指定自定义 title
-    chunks: 'vue_vue-resource',
-    template: 'src/pages/add-record/index.ejs',
-    supportOffline: true
-  },
-  {
     filename: 'rate-detail',
     title: '费率明细', // 指定自定义 title
     chunks: 'vue_vue-resource',
@@ -48,17 +69,38 @@ exports.pages = [
     supportOffline: true
   },
   {
-    filename: 'edit-record',
-    title: '修改记录', // 指定自定义 title
+    filename: 'setup-discountRate',
+    title: 'Setup-Discount Rate', // 指定自定义 title
     chunks: 'vue_vue-resource',
-    template: 'src/pages/edit-record/index.ejs',
+    template: 'src/pages/setup-discountRate/index.ejs',
     supportOffline: true
   },
   {
-    filename: 'jsbridge-demo',
-    title: '测试demo页面', // 指定自定义 title
+    filename: 'Merchant-onboard',
+    title: 'Merchant-On-Board', // 指定自定义 title
     chunks: 'vue_vue-resource',
-    template: 'src/pages/jsbridge-demo/index.ejs',
+    template: 'src/pages/Merchant-onboard/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'complete',
+    title: 'complete', // 指定自定义 title
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/complete/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'preview',
+    title: 'preview', // 指定自定义 title
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/preview/index.ejs',
+    supportOffline: true
+  },
+  {
+    filename: 'Merchant-Information',
+    title: 'Merchant-Information', // 指定自定义 title
+    chunks: 'vue_vue-resource',
+    template: 'src/pages/Merchant-Information/index.ejs',
     supportOffline: true
   }
 ]
