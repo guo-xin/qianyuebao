@@ -14,7 +14,7 @@ let bridge
 if (util.isAPP) {
   bridge = require('./native')
 } else {
-  bridge = require('../bridge/web')
+  bridge = require('./web')
 }
 
 export default bridge
