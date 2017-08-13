@@ -11,15 +11,15 @@
     <ul class="basic_information">
       <li>
         <p class="onwername common">Onwer  Name</p>
-        <input type="text" name="" value="" placeholder="Same As Accont Holder Name">
+        <input type="text" name="" :value="item[5]" placeholder="Same As Accont Holder Name">
       </li>
       <li>
         <p class="id_num common">ID No.</p>
-        <input type="text" name="" value="" placeholder="Please Enter">
+        <input type="text" name="" :value="item[6]" placeholder="Please Enter">
       </li>
-      <li>
+      <li @click="upload">
         <p class="adderss1 common">Upload ID Photo</p>
-        <input type="text" name="" value="" placeholder="Please Upload >">
+        <span class="arrow">Please Upload</span>
       </li>
     </ul>
 
@@ -30,14 +30,14 @@
     <ul class="bank_account">
       <li>
         <p class="account_holder common">Account Holder</p>
-        <input type="text" name="" value="" placeholder="Same As Onwer Name">
+        <input type="text" name="" :value="item[7]" placeholder="Same As Onwer Name">
       </li>
       <li>
         <p class="id_num common">Bank Account</p>
-        <input type="text" name="" value="" placeholder="Please Enter">
+        <input type="text" name="" :value="item[8]" placeholder="Please Enter">
       </li>
     </ul>
-    <div class="next_btn">
+    <div class="next_btn" @click="next">
       Next
     </div>
   </div>
@@ -45,6 +45,46 @@
 
 <script>
 export default {
+  data() {
+    return {
+      item: []
+    }
+  },
+  created() {
+    if(window.localStorage.getItem('data')) {
+      let lists = window.localStorage.getItem('data').split(",");
+      if(lists.length > 5) {
+        this.item = lists;
+      }
+
+    }
+  },
+  methods: {
+    next() {
+      this.setData();
+
+      window.location.href = 'preview.html';
+    },
+
+    setData() {
+      let lists = window.localStorage.getItem('data').split(",");
+      lists = lists.slice(0, 5);
+
+      let list = document.querySelectorAll('input');
+
+      for(let i = 0; i < list.length; i++) {
+        lists.push(list[i].value);
+      }
+
+      window.localStorage.setItem('data', lists);
+    },
+
+    upload() {
+      this.setData();
+
+      window.location.href = 'upload-photo.html';
+    }
+  }
 }
 </script>
 
@@ -122,17 +162,6 @@ ul {
   font-size: 28px;
   text-align: left;
   color: #000;
-}
-.next_btn {
-  width: 100%;
-  height: 80px;
-  background: #FE9B20;
-  text-align: center;
-  color: #fff;
-  font-size: 30px;
-  line-height: 80px;
-  position: fixed;
-  bottom: 0;
 }
 
 </style>

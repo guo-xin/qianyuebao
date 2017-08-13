@@ -51,7 +51,7 @@
 
     methods: {
       redirect() {
-        window.location.href = 'my-info.html';
+        window.location.href = 'set-rate.html';
       }
     }
   }

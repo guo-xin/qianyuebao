@@ -1,9 +1,6 @@
 <template lang="html">
   <div class="container">
-    <!-- <div class="title">
-      <img src="../../assets/arrow_ro.png" alt="">
-      <p class="title_text">Preview</p>
-    </div> -->
+
     <div class="space">
       * Please double check your information before submission
     </div>
@@ -11,19 +8,19 @@
     <ul class="shop_info">
       <li>
         <p class="shopname common">Shop  Name</p>
-        <p class="shopname_text commontext"></p>
+        <p class="shopname_text commontext">{{ item[0] }}</p>
       </li>
       <li>
         <p class="business_type common">Business Type</p>
-        <p class="business_type_text commontext"></p>
+        <p class="business_type_text commontext">{{ item[1] }}</p>
       </li>
       <li>
         <p class="adderss1 common">Address Line 1</p>
-        <p class="adderss1_text commontext"></p>
+        <p class="adderss1_text commontext">{{ item[2] }}</p>
       </li>
       <li>
         <p class="adderss2 common">Address Line 2</p>
-        <p class="adderss2_text commontext"> </p>
+        <p class="adderss2_text commontext">{{ item[3] }}</p>
       </li>
     </ul>
 
@@ -32,46 +29,64 @@
         Shop Photos
       </li>
       <li>
-        <img src="" alt="">
-        <img src="" alt="">
+        <img src="../../assets/upload1.png" alt="shop_photo">
+        <img src="../../assets/upload2.png" alt="shop_photo">
       </li>
     </ul>
 
     <ul class="onwer_info">
       <li>
         <p class="onwer_name common">Onwer Name</p>
-        <p class="onwer_name_text commontext"></p>
+        <p class="onwer_name_text commontext">{{ item[5] }}</p>
       </li>
       <li>
         <p class="onwer_ID common">ID No.</p>
-        <p class="onwer_ID_text commontext"></p>
+        <p class="onwer_ID_text commontext">{{ item[6] }}</p>
       </li>
       <li>
         <p class="ID_photo common">ID Photos</p>
       </li>
       <li class="Id_photo_text">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
+        <img src="../../assets/upload1.png" alt="Id_photo">
+        <img src="../../assets/upload2.png" alt="Id_photo">
       </li>
     </ul>
 
     <ul class="account">
       <li>
         <p class="account_holder common">Account Holder</p>
-        <p class="account_holder_text commontext"> </p>
+        <p class="account_holder_text commontext">{{ item[7] }}</p>
       </li>
       <li>
         <p class="account_num common">Account No.</p>
-        <p class="account_num_text commontext"></p>
+        <p class="account_num_text commontext">{{ item[8] }}</p>
       </li>
     </ul>
+    <div class="next_btn" @click="next">
+      Submit for Review
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      item: []
+    }
+
+  },
+
+  created() {
+    this.item = window.localStorage.getItem('data').split(",");
+  },
+  methods: {
+    next() {
+      window.location.href = 'complete.html';
+    }
+  }
 }
+
 </script>
 
 <style lang="scss" type="scss" rel="stylesheet/scss">

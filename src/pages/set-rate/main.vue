@@ -12,28 +12,24 @@
         <img src="../../assets/icon_wechat.png" alt="">
         <p class="type">Wechat</p>
         <p class="rate">2%(Defaut)</p>
-        <p class="next">></p>
       </li>
       <li>
         <img src="../../assets/icon_alipay.png" alt="">
         <p class="type">Alipay</p>
         <p class="rate">2%(Defaut)</p>
-        <p class="next">></p>
       </li>
       <li>
         <img src="../../assets/icon_JD.png" alt="">
         <p class="type">JD Wallet</p>
         <p class="rate">2%(Defaut)</p>
-        <p class="next">></p>
       </li>
       <li>
         <img src="../../assets/icon_QQ2.png" alt="">
         <p class="type">QQ Wallet</p>
         <p class="rate">2%(Defaut)</p>
-        <p class="next">></p>
       </li>
     </ul>
-    <div class="next_btn">
+    <div class="next_btn" @click="next">
       Next
     </div>
   </div>
@@ -41,19 +37,16 @@
 
 <script>
 export default {
+  methods: {
+    next() {
+      window.location.href = 'send-code.html';
+    }
+  }
 }
 </script>
 
-<style lang="scss" scoped>
-  div, p, a, span, body, dl, dt, dd, header, footer, img, section, time, h1,h2, em, article, h3, h4, ul, li, label, ol, h5, i {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body,html {
-    width: 100%;
-    height: 100%;
-  }
+<style scoped lang="scss" type="scss" rel="stylesheet/scss">
+  @import "../../styles/common";
   ul,li {
     list-style: none;
   }
@@ -107,9 +100,9 @@ export default {
         position: relative;
 
         img {
-          width: 50px;
-          height: 50px;
-          margin:0  30px 0 35px;
+          width: 60px;
+          height: 60px;
+          margin:0  20px;
         }
         .rate {
           position: absolute;
@@ -125,16 +118,4 @@ export default {
       }
     }
   }
-  .next_btn {
-    width: 100%;
-    height: 80px;
-    background: #FE9B20;
-    text-align: center;
-    color: #fff;
-    font-size: 30px;
-    line-height: 80px;
-    position: fixed;
-    bottom: 0;
-  }
-
 </style>

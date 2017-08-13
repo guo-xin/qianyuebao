@@ -5,6 +5,27 @@
   @return $n / 32 / 2 + rem;
 }
 
+// usual color
+$g: #606470; //gary
+$dg: #8A8C92; //dark gary
+$o: #FF8100; //orange
+$b: #2F323A; //black
+$lg: #A7A9AE; //light gary
+$lw: #e6e6e6; //light white
+
+// fontSize
+$f48 : 48px;
+$f40 : 40px;
+$f36 : 36px;
+$f34 : 34px;
+$f32 : 32px;
+$f30 : 30px;
+$f28 : 28px;
+$f26 : 26px;
+$f24 : 24px;
+$f22 : 22px;
+$f20 : 20px;
+
 * {
   /* 防止点击闪烁 */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -53,23 +74,36 @@ input:focus {
   min-height: 100vh;
   background-color: #F7F7F7;
 }
-// usual color
-$g: #606470; //gary
-$dg: #8A8C92; //dark gary
-$o: #FF8100; //orange
-$b: #2F323A; //black
-$lg: #A7A9AE; //light gary
-$lw: #e6e6e6; //light white
+.next_btn {
+  width: 100%;
+  height: 80px;
+  background: #FE9B20;
+  text-align: center;
+  color: #fff;
+  font-size: 30px;
+  line-height: 80px;
+  position: fixed;
+  bottom: 0;
+}
 
-// fontSize
-$f48 : 48px;
-$f40 : 40px;
-$f36 : 36px;
-$f34 : 34px;
-$f32 : 32px;
-$f30 : 30px;
-$f28 : 28px;
-$f26 : 26px;
-$f24 : 24px;
-$f22 : 22px;
-$f20 : 20px;
+
+.arrow {
+  position: relative;
+  color: $g;
+  padding-right: 18px;
+  font-size: 28px;
+
+  &:after {
+    display: block;
+    content: '';
+    width: 14px;
+    height: 26px;
+    position: absolute;
+    background: url("../../assets/arrow.svg") no-repeat center center;
+    background-size: 100% 100%;
+    right: 0;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+  }
+}
+

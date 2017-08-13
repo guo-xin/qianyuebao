@@ -41,34 +41,6 @@ exports.pages = [
     supportOffline: true
   },
   {
-    filename: 'my-info',
-    title: 'Personal Information', // 我的资料
-    chunks: 'vue_vue-resource',
-    template: 'src/pages/my-info/index.ejs',
-    supportOffline: true
-  },
-  {
-    filename: 'search-shop',
-    title: '查找店铺', // 指定自定义 title
-    chunks: 'vue_vue-resource',
-    template: 'src/pages/search-shop/index.ejs',
-    supportOffline: true
-  },
-  {
-    filename: 'transaction-data',
-    title: '交易数据', // 指定自定义 title
-    chunks: 'vue_vue-resource',
-    template: 'src/pages/transaction-data/index.ejs',
-    supportOffline: true
-  },
-  {
-    filename: 'rate-detail',
-    title: '费率明细', // 指定自定义 title
-    chunks: 'vue_vue-resource',
-    template: 'src/pages/rate-detail/index.ejs',
-    supportOffline: true
-  },
-  {
     filename: 'set-rate',
     title: 'Setup-Discount Rate', // 指定自定义 设置费率
     chunks: 'vue_vue-resource',

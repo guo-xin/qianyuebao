@@ -11,7 +11,7 @@
       <p class="text">Your Application is in Review</p>
     </div>
 
-    <div class="next_btn">
+    <div class="next_btn" @click="complete">
       Complete
     </div>
   </div>
@@ -19,6 +19,13 @@
 
 <script>
 export default {
+  methods: {
+    complete() {
+      window.localStorage.clear();
+
+      window.location.href = 'register.html';
+    }
+  }
 }
 </script>
 

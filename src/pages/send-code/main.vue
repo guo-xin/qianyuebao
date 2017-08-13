@@ -17,7 +17,7 @@
         <p class="getCode"> Get Code</p>
       </li>
     </ul>
-    <div class="next_btn">
+    <div class="next_btn" @click="next">
       Next
     </div>
   </div>
@@ -25,19 +25,16 @@
 
 <script>
 export default {
+  methods: {
+    next() {
+      window.location.href = 'basic-info1.html';
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-div, p, a, span, body, dl, dt, dd, header, footer, img, section, time, h1,h2, em, article, h3, h4, ul, li, label, ol, h5, i {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body,html {
-  width: 100%;
-  height: 100%;
-}
+  @import "../../styles/common";
 ul,li {
   list-style: none;
 }
@@ -113,16 +110,5 @@ ul {
   color: orange;
   border: 2px solid #FE9B20;
   border-radius: 8px;
-}
-.next_btn {
-  width: 100%;
-  height: 80px;
-  background: #FE9B20;
-  text-align: center;
-  color: #fff;
-  font-size: 30px;
-  line-height: 80px;
-  position: fixed;
-  bottom: 0;
 }
 </style>

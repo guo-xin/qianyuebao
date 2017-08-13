@@ -1,13 +1,24 @@
 <template>
   <div class="form-control">
-    <div class="space"></div>
     <div class="container">
-      <img src="../../assets/shopHeader.png" alt="">
-      <div class="upload">Upload</div>
-      <img src="../../assets/shop_detail.png" alt="">
-      <div class="upload">Upload</div>
+      <img  v-if="status1" src="../../assets/upload1.png" alt="upload">
+      <img v-else="!status1" src="../../assets/shopHeader.png" alt="upload">
+      <div class="upload">
+        <span>Upload</span>
+        <input type="file" class="upload-input" accept="jpg,jpeg,png,gif;capture=camera"
+               @change="chooseFile1">
+      </div>
+
+      <img  v-if="status2" src="../../assets/upload2.png" alt="upload">
+      <img v-else="!status2" src="../../assets/shop_detail.png" alt="upload">
+
+      <div class="upload">
+        <span>Upload</span>
+        <input type="file" class="upload-input" accept="jpg,jpeg,png,gif;capture=camera"
+               @change="chooseFile2">
+      </div>
     </div>
-    <div class="complete_btn">Complete</div>
+    <div class="next_btn" @click="complete">Complete</div>
   </div>
 </template>
   <script type="text/ecmascript-6">
@@ -15,15 +26,40 @@
 
     data () {
       return {
-
+          status1: false,
+          status2: false
       }
-    },
-    created () {
-
     },
 
     methods: {
+      handleUploadSuccess(info) {
+        if(info === 1) {
+          this.status1 = true;
+        }else {
+          this.status2 = true;
+        }
 
+      },
+
+      chooseFile1(event) {
+        const {files} = event.target;
+        if (files.length > 0) {
+          // let img = files[0];
+          this.handleUploadSuccess(1);
+        }
+      },
+
+      chooseFile2(event) {
+        const {files} = event.target;
+        if (files.length > 0) {
+          // let img = files[0];
+          this.handleUploadSuccess(2);
+        }
+      },
+
+      complete() {
+        window.history.back();
+      }
     }
   }
 </script>
@@ -32,12 +68,7 @@
   @import "../../styles/common";
   .form-control {
     width: 100%;
-    position: relative;
-  }
-  .space {
-    width: 100%;
-    height: 140px;
-    background: #efefef;
+    overflow: auto;
   }
   img {
     width: 100%;
@@ -61,6 +92,19 @@
    text-align: center;
    border-radius: 6px;
    margin: 20px 0;
+   position: relative;
+
+   span {
+
+   }
+   .upload-input {
+     position: absolute;
+     left: 0;
+     top: 0;
+     height: 100%;
+     width: 100%;
+     opacity: 0;
+   }
  }
  .complete_btn {
    width: 100%;

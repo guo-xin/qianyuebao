@@ -8,19 +8,19 @@
     <ul class="basic_information">
       <li>
         <p class="onwername common">Shop Name</p>
-        <input type="text" name="" value="" placeholder="Please Enter">
+        <input type="text" :value="item[0]" placeholder="Please Enter">
       </li>
       <li>
         <p class="id_num common">Business Type</p>
-        <input type="text" name="" value="" placeholder="Please Enter">
+        <input type="text" name="" :value="item[1]" placeholder="Please Enter">
       </li>
       <li>
         <p class="id_num common">Address Line 1</p>
-        <input type="text" name="" value="" placeholder="Please Enter">
+        <input type="text" name="" :value="item[2]" placeholder="Please Enter">
       </li>
       <li>
         <p class="id_num common">Address Line 2</p>
-        <input type="text" name="" value="" placeholder="Please Enter">
+        <input type="text" name="" :value="item[3]" placeholder="Please Enter">
       </li>
       <li>
 
@@ -32,13 +32,13 @@
     </div>
 
     <ul class="bank_account">
-      <li>
+      <li @click="upload">
         <p class="account_holder common">Shop Photos</p>
-        <input type="text" class="arrow" placeholder="Please Upload">
+        <span class="arrow">Please Upload</span>
       </li>
       <li>
         <p class="id_num common">Shop Contacts (Option)</p>
-        <input type="text" name="" value="" placeholder="Please Enter">
+        <input type="text" name="" :value="item[4]" placeholder="Please Enter">
       </li>
     </ul>
     <div class="next_btn" @click="next">Next</div>
@@ -47,9 +47,39 @@
 
 <script>
 export default {
+  data() {
+    return {
+      item: []
+    }
+  },
+  created() {
+    if(window.localStorage.getItem('data')) {
+      let lists = window.localStorage.getItem('data').split(",");
+      this.item = lists;
+    }
+  },
+
   methods: {
     next() {
+      this.getData();
+
       window.location.href = 'basic-info2.html';
+    },
+
+    getData() {
+      let list = document.querySelectorAll('input');
+      let lists = [];
+      for(let i = 0; i < list.length; i++) {
+        lists.push(list[i].value);
+      }
+
+      window.localStorage.setItem('data', lists);
+    },
+
+    upload() {
+      this.getData();
+
+      window.location.href = 'upload-photo.html';
     }
   }
 }
@@ -122,21 +152,6 @@ ul {
       color: #999;
       font-weight: 400;
     }
-    .arrow {
-      position: relative;
-      &:after {
-        display: block;
-        content: '';
-        width: 14px;
-        height: 26px;
-        position: absolute;
-        background: url("../../assets/arrow.svg") no-repeat center center;
-        background-size: 100% 100%;
-        right: 0;
-        top: 50%;
-        transform: translate3d(0, -50%, 0);
-      }
-    }
   }
 }
 .common {
@@ -144,17 +159,6 @@ ul {
   text-align: left;
   color: #000;
 
-}
-.next_btn {
-  width: 100%;
-  height: 80px;
-  background: #FE9B20;
-  text-align: center;
-  color: #fff;
-  font-size: 30px;
-  line-height: 80px;
-  position: fixed;
-  bottom: 0;
 }
 
 </style>
