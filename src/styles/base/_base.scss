@@ -58,6 +58,9 @@ input:focus {
   outline: none;
 }
 
+input {
+  border: none;
+}
 [v-cloak] {
   display: none;
 }
