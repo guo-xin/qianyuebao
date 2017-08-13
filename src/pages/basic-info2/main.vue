@@ -1,12 +1,12 @@
 <template lang="html">
   <div class="container">
-    <!-- <div class="title">
+    <!--<div class="title">
       <img src="../../assets/arrow_ro.png" alt="">
       <p class="title_text">Merchant Information</p>
-    </div>
+    </div>-->
     <div class="Title">
       Basic Information
-    </div> -->
+    </div>
 
     <ul class="basic_information">
       <li>
@@ -18,7 +18,7 @@
         <input type="text" name="" value="" placeholder="Please Enter">
       </li>
       <li>
-        <p class="adderss1 common">Address Line 1</p>
+        <p class="adderss1 common">Upload ID Photo</p>
         <input type="text" name="" value="" placeholder="Please Upload >">
       </li>
     </ul>
@@ -110,7 +110,6 @@ ul {
 
     input {
       height: 90%;
-      width: 70%;
       outline: none;
       text-align: right;
       font-size: 28px;
